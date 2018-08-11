@@ -28,6 +28,7 @@ stealthyIdx.addResource(resource3)
 //
 if (stealthyIdx.isValid()) {
   console.log('Stealthy Index data is valid.')
+  doAsyncWorkSequentially(stealthyIdx)
 } else {
   console.log('Stealthy Index data is INVALID!')
   console.log('Errors: ', stealthyIdx.getErrors())
@@ -45,7 +46,14 @@ async function doAsyncWorkSequentially(theStealthyIndex) {
 
     console.log(`This stringified cipher object needs to get writen to ${StealthyIndex.getIndexName()}`)
     console.log('\n', stringifiedCipherObject)
+
+    // Note:
+    // In addition to writing the encrypted file to StealthyIndex.getIndexName(), 
+    // you'll probably want to keep an instance of the index around and/or stringify 
+    // it for later use (since you'll want to add / remove posts from it and re-write the
+    // encrypted index later for updated sharing).
+    //
+    // Also, you might want to persist the Stealthy public key somewhere as it's
+    // time consuming to fetch.
   }
 }
-
-doAsyncWorkSequentially(stealthyIdx)
