@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "ajv": "^6.5.2",
+    "apisauce": "^0.16.0",
+    "blockstack": "^18.0.4"
+  }
+}
