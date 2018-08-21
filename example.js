@@ -6,22 +6,29 @@ const { encryptECIES, decryptECIES } = require('blockstack/lib/encryption')
 // Construct a Stealthy Index from resources.
 //
 const resource1 = new Resource("my_pictures/last_year/feed-01.picture",   // Relative path to resource from index.
-                               "My Awesome Picture")                      // Title of resource.
+                               "My Awesome Picture",                      // Title of resource.
+                               Resource.Type.image)
 resource1.setDescription('That time I got to have extra fries.')          // Optional description.
 
 const resource2 = new Resource("my_documents/this_year/210210002938a32f",
                                "New document",
-                               "0.1")                                     // Optional resource version.
+                               Resource.Type.browsable)
 
 const resource3 = new Resource("my_encrypted_resources/today/myAvatatar.photo",
                                "My Avatar Picture",
-                               "1.1")
+                               Resource.Type.image)
 resource3.setEncryption("https://myAwesomeDApp.io", "wenger.id")          // Optional encryption description.
+
+
+const resource4 = new Resource("status/1",                                // Example for a Travelstack post
+                               "Travelstack was launched here.",
+                               Resource.Type.browsable)
 
 const stealthyIdx = new StealthyIndex()
 stealthyIdx.addResource(resource1)
 stealthyIdx.addResource(resource2)
 stealthyIdx.addResource(resource3)
+stealthyIdx.addResource(resource4)
 
 
 // Make sure the index is valid before encrypting and writing it
@@ -29,6 +36,8 @@ stealthyIdx.addResource(resource3)
 if (stealthyIdx.isValid()) {
   console.log('Stealthy Index data is valid.')
   doAsyncWorkSequentially(stealthyIdx)
+  stealthyIdx.dumpIndex()
+  console.log()
 } else {
   console.log('Stealthy Index data is INVALID!')
   console.log('Errors: ', stealthyIdx.getErrors())
